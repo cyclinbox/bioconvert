@@ -1,3 +1,7 @@
+from easydev import TempFile
+
+from bioconvert import bioconvert_data
+from bioconvert.core import decorators
 from bioconvert.core.decorators import requires
 
 
@@ -62,3 +66,17 @@ def test_require_both():
 
     g = requires(python_library="tagada7", external_binary="tagada8")(f)
     assert g.is_disabled
+
+
+def test_get_compression_format():
+    assert decorators.get_compression_format(bioconvert_data('SRR390728_2.fastq.7z')) == "7Z"
+    assert decorators.get_compression_format(bioconvert_data('SRR390728_2.fastq.tar.xz')) == "XZ"
+    assert decorators.get_compression_format(bioconvert_data('SRR390728_2.fastq.zip')) == "ZIP"
+    assert decorators.get_compression_format(bioconvert_data('SRR390728_2.fastq.gz')) == "GZ"
+    assert decorators.get_compression_format(bioconvert_data('SRR390728_2.fastq')) == "UNKNOWN"
+    with TempFile(suffix=".7z") as tempfile:
+        assert decorators.get_compression_format(tempfile.name) == "UNKNOWN"
+    with TempFile(suffix=".gz") as tempfile:
+        with open(tempfile.name, 'w') as out:
+            out.write("eee")
+        assert decorators.get_compression_format(tempfile.name) == "UNKNOWN"

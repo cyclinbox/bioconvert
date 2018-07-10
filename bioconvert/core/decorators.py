@@ -33,17 +33,29 @@ from easydev import TempFile
 _log = colorlog.getLogger(__name__)
 
 
-def is_gz(file_path):
-    """Detect if file is a gziped file based on first two bit of file."""
-    with open(file_path) as f:
-        file_start = f.read(2)
+def get_compression_format(file_path):
+    """Detect file compression based on first bits of file."""
+    with open(file_path, 'rb') as f:
+        file_start = f.read(6)
 
-    # according to http://www.zlib.org/rfc-gzip.html#header-trailer
-    # all gzipfile begin by bit 0x1F and 0x8b
-    if file_start == "\x1f\x8b":
-            return True
+        # according to http://www.zlib.org/rfc-gzip.html#header-trailer
+        # all gzipfile begin by bit 0x1F and 0x8b
+        if file_start[0:2] == b'\x1f\x8b':
+            return "GZ"
 
-    return False
+        # https://fr.wikipedia.org/wiki/7z
+        if file_start[0:6] == b'7z\xbc\xaf\x27\x1c':
+            return "7Z"
+
+        # https://tukaani.org/xz/xz-file-format.txt
+        if file_start[0:6] == b'\xfd7zXZ\x00':
+            return "XZ"
+
+        # https://en.wikipedia.org/wiki/Zip_(file_format)
+        if file_start[0:4] == b'PK\x03\x04':
+            return "ZIP"
+
+    return "UNKNOWN"
 
 
 def in_gz(func):
@@ -88,7 +100,7 @@ def compressor(func):
             (inst.outfile, output_compressed) = splitext(inst.outfile)
         # Now inst has the uncompressed output file name
 
-        if is_gz(infile_name):
+        if get_compression_format(infile_name) == "GZ" and infile_name.endswith(".gz"):
             # decompress input
             # TODO: https://stackoverflow.com/a/29371584/1878788
             _log.info("Generating uncompressed version of %s " % infile_name)
