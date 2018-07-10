@@ -152,10 +152,6 @@ modindex_common_prefix = ["bioconvert."]
 # By default, examples are not built locally. You can set plot_gallery to True
 # to force their creation. Note that it requires singularity or dot to be
 # installed. Fixes https://github.com/biokit/bioconvert/issues/153
-if not on_rtd:
-    plot_gallery = False
-else:
-    plot_gallery = True
 
 plot_gallery = True
 
@@ -172,15 +168,6 @@ sphinx_gallery_conf = {
 # details
 numpydoc_show_class_members = False
 
-
-modpath = os.path.join("modules")
-genpath = os.path.join("modules", "generated")
-if os.path.exists(modpath) is False:
-    print("---------------hello")
-    os.mkdir(modpath)
-    if os.path.exists(genpath) is False:
-        print("hello25")
-        os.mkdir(genpath)
 
 # solution from nilearn
 def touch_example_backreferences(app, what, name, obj, options, lines):
@@ -302,7 +289,6 @@ htmlhelp_basename = 'doc'
 # NOT in original quickstart
 pngmath_use_preview = True
 
-
 # The font size ('10pt', '11pt' or '12pt').
 latex_font_size = '10pt'
 
@@ -315,7 +301,6 @@ latex_documents = [
 
 latex_elements = { 'inputenc': '\\usepackage[utf8]{inputenc}' }
 latex_elements["latex_paper_size"] = "a4"
-
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
 #latex_logo = None
