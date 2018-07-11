@@ -29,7 +29,7 @@ import csv
 import colorlog
 
 from bioconvert.core.base import ConvArg
-from bioconvert.core.decorators import requires, requires_nothing
+from bioconvert.core.decorators import requires, requires_nothing, compressor
 
 from bioconvert import ConvBase
 
@@ -69,6 +69,7 @@ class TSV2CSV(ConvBase):
         super().__init__(infile, outfile)
 
     @requires_nothing
+    @compressor
     def _method_python(
             self,
             in_sep=DEFAULT_IN_SEP,
@@ -86,6 +87,7 @@ class TSV2CSV(ConvBase):
                 writer.writerow(row)
 
     @requires_nothing
+    @compressor
     def _method_python_v2(
             self,
             in_sep=DEFAULT_IN_SEP,
@@ -104,6 +106,7 @@ class TSV2CSV(ConvBase):
                 out_stream.write(line_terminator)
 
     @requires(python_library="pandas")
+    @compressor
     def _method_panda(
             self,
             in_sep=DEFAULT_IN_SEP,
