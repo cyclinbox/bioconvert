@@ -1,7 +1,7 @@
 Bioconvert
 ==========
 
-**Bioconvert** is a collaborative project to facilitate the interconversion of life science data from one format to another.
+**Bioconvert** 是一个协作项目，旨在促进生命科学里的数据从一种格式到另一种格式的相互转换。
 
 .. image:: https://badge.fury.io/py/bioconvert.svg
     :target: https://pypi.python.org/pypi/bioconvert
@@ -39,22 +39,21 @@ Bioconvert
 :issues: Please use https://github.com/bioconvert/bioconvert/issues
 
 
-Installation
+安装
 ###############
 
-In order to install bioconvert, you can use **pip**::
+可以使用 **pip**安装bioconvert::
 
     pip install bioconvert
 
-We also provide releases on bioconda (http://bioconda.github.io/)::
+同时，原作者提供了在bioconda (http://bioconda.github.io/)上的发行版::
 
     conda install bioconvert
 
-and Singularity container are available. See
-http://bioconvert.readthedocs.io/en/master/user_guide.html#installation for
-details.
+同时在Singularity container上同样可用。参考以下链接
+http://bioconvert.readthedocs.io/en/master/user_guide.html#installation 以了解更多。
 
-Usage
+使用说明
 ##########
 
 ::
@@ -64,7 +63,7 @@ Usage
     bioconvert bam2bed input.bam output.bed
     bioconvert --help
 
-Available Converters
+可用转换器
 #######################
 
 .. image:: https://raw.githubusercontent.com/bioconvert/bioconvert/master/doc/conversion.png
