@@ -42,7 +42,7 @@ Bioconvert
 安装
 ###############
 
-可以使用 **pip**安装bioconvert::
+可以使用 **pip** 安装bioconvert::
 
     pip install bioconvert
 
@@ -53,7 +53,7 @@ Bioconvert
 同时在Singularity container上同样可用。参考以下链接
 http://bioconvert.readthedocs.io/en/master/user_guide.html#installation 以了解更多。
 
-使用说明
+使用
 ##########
 
 ::
